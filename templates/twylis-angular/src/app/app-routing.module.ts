@@ -29,7 +29,7 @@ const routes: Routes = [
     children: [{ path: '', component: SignInComponent }]
   },
   {path: 'account', component: AccountComponent, canActivate: [AuthGuard]},
-  {path: 'dashboard', component: MaterialDashboardComponent},
+  {path: 'dashboard', component: MaterialDashboardComponent, canActivate: [AuthGuard]},
   { path: 'sample-1', component: SamplePage1Component},
   { path: 'sample-2', component: SamplePage2Component},
   { path: 'sample-3', component: SamplePage3Component},

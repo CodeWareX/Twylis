@@ -1,12 +1,7 @@
 <app-header></app-header>
 <input type="text" placeholder="Search..." id = "search-bar" [(ngModel)]="keyword">
-<!--<div class="btn_report" >-->
-<!--  <a (click)="searchKeyword()">-->
-<!--    SEARCH-->
-<!--  </a>-->
-<!--</div>-->
 <div class="btn_report" id = "search-button" (click)="searchKeyword()">
-  <a>
+  <a style="cursor:pointer">
     <span></span>
     <span></span>
     <span></span>
@@ -14,7 +9,6 @@
     search
   </a>
 </div>
-<h2 [(ngModel)]="results"></h2>
 <div class="grid-container">
   <h1 class="mat-h1">Dashboard</h1>
   <kendo-pdf-export #pdf>
@@ -60,7 +54,7 @@
 </kendo-pdf-export>
 
 <div class="btn_report">
-<a href="#" kendo-button (click)="pdf.saveAs('demo-content.pdf')">
+<a href="#" kendo-button (click)="pdf.saveAs('demo-content.pdf')" style="cursor:pointer">
   <span></span>
   <span></span>
   <span></span>

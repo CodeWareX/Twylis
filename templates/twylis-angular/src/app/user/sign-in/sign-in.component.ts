@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class SignInComponent implements OnInit {
 
-  loginUserData = {
+  public loginUserData = {
     email: undefined,
     password: undefined
   };
@@ -25,9 +25,8 @@ export class SignInComponent implements OnInit {
       .subscribe(
         res => {
           localStorage.setItem('token', res.token);
-          this._router.navigate(['/account']);
+          this._router.navigate(['/dashboard']);
         },
-        // res => console.log(res),
         err => console.log(err)
       );
   }

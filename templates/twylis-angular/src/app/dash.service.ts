@@ -12,6 +12,12 @@ export class DashService {
   constructor(private http: HttpClient) { }
 
   searchKeyword(keyword: String) {
-    return this.http.get<any>(this._searchUrl + keyword.trim());
+    this._searchUrl = 'https://twylis-app.herokuapp.com/search?keyword=' + keyword.trim();
+    return this.http.get<any>(this._searchUrl);
+  }
+
+  searchKeywordSummary() {
+    this._searchUrl = 'https://twylis-app.herokuapp.com/summary';
+    return this.http.get<any>(this._searchUrl);
   }
 }

@@ -3,11 +3,9 @@
 
     <a routerLink="/home" routerLinkActive="active"><button class="nav-btn">Home</button></a>
 
-    <a routerLink="/dashboard" routerLinkActive="active"><button class="nav-btn">Dashboard</button></a>
-
-    <a routerLink="/login" routerLinkActive="active"><button class="nav-btn">Login</button></a>
-
-    <a routerLink="/signup" routerLinkActive="active"><button class="nav-btn" id="signup">SIGN UP</button></a>
-
+    <a class="nav-link" *ngIf="!_authService.loggedIn()" routerLink="/login" routerLinkActive="active"><button class="nav-btn">Login</button></a>
+    <a class="nav-link" *ngIf="!_authService.loggedIn()" routerLink="/signup" routerLinkActive="active"><button class="nav-btn" id="signup">Register</button></a>
+    <a class="nav-link" *ngIf="_authService.loggedIn()" routerLink="/dashboard" routerLinkActive="active"><button class="nav-btn">Dashboard</button></a>
+    <a class="nav-link" style="cursor:pointer" *ngIf="_authService.loggedIn()" (click)="_authService.logoutUser()"><button class="nav-btn">Logout</button></a>
   </div>
 </div>

@@ -8,7 +8,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class AccountComponent implements OnInit {
 
-  private _accountUrl = 'http://localhost:3000/api/account';
+  private _accountUrl = 'https://twylis-server.herokuapp.com/api/account';
 
   constructor(private http: HttpClient) { }
 

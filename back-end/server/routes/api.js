@@ -36,18 +36,14 @@ function verifyToken(req, res, next) {
 }
 
 router.get('/account', verifyToken, (req, res) => {
-  let payload = {subject: user._id}
-  let token = jwt.sign(payload, 'secretKey')
-  res.status(200).send({token})
-  // let specialEvents = [
-  //   {
-  //     "_id": "1",
-  //     "name": "Auto Expo Special",
-  //     "description": "lorem ipsum",
-  //     "date": "2012-04-23T18:25:43.511Z"
-  //   },
-  // ]
-  // res.json(specialEvents)
+  let userData = req.body
+  User.findOne({email: userData.email}, (err, user) => {
+    if (err) {
+      console.log(err)    
+    } else {
+        res.json(user)
+    }
+  })
 })
 
 router.post('/register', (req, res) => {

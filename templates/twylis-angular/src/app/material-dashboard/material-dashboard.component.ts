@@ -17,15 +17,18 @@ import {DashService} from '../dash.service';
 })
 export class MaterialDashboardComponent {
 
-  results = [];
+  results = {
+    positive: 0,
+    negative: 0,
+    neutral: 0
+  };
+
+  public summary = '';
   constructor(private dashService: DashService) {}
   keyword = '';
   // Number of cards to be generated with column and rows to be covered
   cards = [
-    { title: 'Card 1', cols: 2, rows: 1 },
-    { title: 'Card 2', cols: 1, rows: 1 },
-    { title: 'Card 3', cols: 1, rows: 2 },
-    { title: 'Card 4', cols: 1, rows: 1 }
+    { title: 'Search Results', cols: 2, rows: 1 },
   ];
 
   public charts: {
@@ -37,15 +40,14 @@ export class MaterialDashboardComponent {
   }[] = [];
 
   public chart = {
-    title: 'Changing Chart',
+    title: 'Customer Sentiment',
     type: ChartType.BarChart,
     data: [
-      ['Copper', 8.94],
-      ['Silver', 10.49],
-      ['Gold', 19.3],
-      ['Platinum', 21.45]
+      ['Positive', this.results.positive],
+      ['Negative', this.results.negative],
+      ['Neutral', this.results.neutral],
     ],
-    columns: ['Element', 'Density'],
+    columns: ['Polarity', 'Percentage'],
     options: {
       animation: {
         duration: 250,
@@ -57,8 +59,42 @@ export class MaterialDashboardComponent {
   searchKeyword() {
     this.dashService.searchKeyword(this.keyword)
       .subscribe(
-        res => this.results = res,
+        res => {
+          this.results.positive = res.positive,
+          this.results.negative = res.negative,
+          this.results.neutral = res.neutral
+          console.log(this.results)
+          this.chart = {
+            title: 'Keyword Search: ' + this.keyword,
+            type: ChartType.BarChart,
+            data: [
+              ['Positive', this.results.positive],
+              ['Negative', this.results.negative],
+              ['Neutral', this.results.neutral],
+            ],
+            columns: ['Polarity', 'Percentage'],
+            options: {
+              animation: {
+                duration: 250,
+                easing: 'ease-in-out',
+                startup: true
+              }
+            }
+          };
+          this.chart = Object.assign([], this.chart)
+        },
         err => console.log(err)
       );
+  }
+
+  searchKeywordSummary(){
+    this.dashService.searchKeywordSummary()
+      .subscribe(
+        res => {
+          this.summary = res.value;
+          console.log('Summary: ' + this.summary)
+        },
+        err => console.log(err)
+      )
   }
 }
